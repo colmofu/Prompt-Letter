@@ -1,5 +1,6 @@
 import openai
 import os
+import PyPDF2
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -57,4 +58,9 @@ def text_to_pdf(text):
     pdf = []
     return pdf
 
+def pdf_to_text(pdf_file_path):
+    """
+    return text for pdf file path provided
+    """
+    
 

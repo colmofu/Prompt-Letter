@@ -1,3 +1,5 @@
 *.log
 pdf_files/*
 .DS_Store
+.env
+.envrc

@@ -17,7 +17,7 @@ def get_completion(prompt, model="gpt-4"):
     )
     return response.choices[0].message["content"]
 
-def write_letter(job_posting, resume, lang = 'en', field = 'tech/data', *args, **kwargs):
+def write_letter(job_posting: str, resume: str, lang = 'en', field = 'tech/data', *args, **kwargs):
     """
     Write cover letter for a job post in either English (default) or German.
     """
@@ -58,9 +58,27 @@ def text_to_pdf(text):
     pdf = []
     return pdf
 
-def pdf_to_text(pdf_file_path):
+def pdf_to_text(pdf_file_name: str):
     """
     return text for pdf file path provided
     """
+    file_name = pdf_file_name
+    file_obj = open(os.path.abspath(os.path.join("pdf_files", file_name)), 'rb')
     
+    reader = PyPDF2.PdfReader(file_obj)
+    
+    num_pages = len(reader.pages)
+    
+    # Extract text for each page
+    text = ''
+    for page in range(0, num_pages):
+        obj = reader.pages[page]
+        page_text = obj.extract_text()
+        text = '\n'.join([text, page_text])
+    
+    # closing the pdf file object
+    file_obj.close()
+    
+    return text
+        
 
